@@ -1,0 +1,10 @@
+# Compilados y temporales de Android
+**/build/
+.gradle/
+**/local.properties
+.idea/
+*.apk
+*.aab
+# Editor y logs
+.vscode/
+*.log

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0F172A"
+    android:padding="12dp">
+
+    <!-- 1. Cabecera y Configuración de Conexión TCP (10.0.2.2 para Emulador / IP LAN) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1E293B"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Open AI Cubes — Nodo Android TCP"
+                android:textColor="#F8FAFC"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvConnectionStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desconectado"
+                android:textColor="#F87171"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/etServerHost"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#0F172A"
+                android:paddingHorizontal="8dp"
+                android:text=""
+                android:hint="Ingresa IP de tu laptop (ej. 192.168.18.8)"
+                android:textColor="#F8FAFC"
+                android:textColorHint="#64748B"
+                android:textSize="13sp"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/etServerPort"
+                android:layout_width="72dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:background="#0F172A"
+                android:paddingHorizontal="8dp"
+                android:text="5000"
+                android:hint="Puerto"
+                android:textColor="#F8FAFC"
+                android:textColorHint="#64748B"
+                android:textSize="13sp"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btnConnectTcp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:backgroundTint="#3B82F6"
+                android:text="Conectar"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 2. Panel de Clasificación CNN (Galería -> Base64) y Prueba de Saturación (1000 TX) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#1E293B"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/ivSelectedPreview"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:background="#0B1120"
+            android:scaleType="centerCrop"
+            android:contentDescription="Previsualización de imagen" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnPickAndSendImage"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:backgroundTint="#10B981"
+                android:text="Enviar Imagen de Galería (Base64)"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnSaturationTest"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="#F59E0B"
+                android:text="Prueba Saturación (1000 Imágenes TCP)"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Barra de progreso y telemetría de la Prueba de Saturación -->
+    <ProgressBar
+        android:id="@+id/pbSaturation"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="4dp"
+        android:max="1000"
+        android:progress="0"
+        android:progressTint="#10B981" />
+
+    <TextView
+        android:id="@+id/tvSaturationMetrics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Telemetría: Listo (0 / 1000 transacciones)"
+        android:textColor="#94A3B8"
+        android:textSize="11sp"
+        android:fontFamily="monospace" />
+
+    <!-- 3. Visor de Chat Multiplataforma y Diagnósticos del Modelo CNN -->
+    <ScrollView
+        android:id="@+id/svChatScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="6dp"
+        android:background="#0B1120"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvChatHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="#E2E8F0"
+            android:textSize="12sp"
+            android:lineSpacingExtra="3dp"
+            android:text="[Sistema] Nodo Cliente Android iniciado. Pulse 'Conectar' para enlazar con el Backend Central TCP (:5000).\n" />
+    </ScrollView>
+
+    <!-- 4. Barra Inferior para Envío de Mensajes de Chat -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/etChatMessage"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="#1E293B"
+            android:paddingHorizontal="12dp"
+            android:hint="Escribe un mensaje para el chat..."
+            android:textColor="#F8FAFC"
+            android:textColorHint="#94A3B8"
+            android:textSize="14sp"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnSendChat"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#3B82F6"
+            android:text="Enviar"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

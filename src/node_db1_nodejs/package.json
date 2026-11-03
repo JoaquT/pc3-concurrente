@@ -1,0 +1,10 @@
+{
+  "name": "openaicubes-node-db1-postgres",
+  "version": "1.0.0",
+  "description": "Nodo BD 1 (NodeJS / Debian + PostgreSQL) para Metadatos e Historial con Control de Concurrencia",
+  "main": "db1_node.js",
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "pg": "^8.11.5"
+  }
+}
